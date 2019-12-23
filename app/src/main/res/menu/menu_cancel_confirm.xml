@@ -1,0 +1,17 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.magnox.birthdays.AddActivity">
+
+    <item
+        android:id="@+id/action_cancel"
+        android:title="@string/menu_cancel"
+        android:icon="@android:drawable/ic_menu_revert"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_confirm"
+        android:title="@string/menu_confirm"
+        android:icon="@android:drawable/ic_menu_save"
+        app:showAsAction="always" />
+</menu>

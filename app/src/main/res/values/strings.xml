@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Birthdays</string>
+    <string name="date_format">%1$td.%1$tm.%1$tY</string>
+
+    <string name="menu_settings">Settings</string>
+    <string name="menu_cancel">Cancel</string>
+    <string name="menu_confirm">Confirm</string>
+
+    <string name="add_date_picker_dialog_title">Choose birthday</string>
+    <string name="add_day_hint">dd</string>
+    <string name="add_month_hint">MM</string>
+    <string name="add_year_hint">yyyy</string>
+    <string name="add_first_name_hint">First Name</string>
+    <string name="add_last_name_hint">Last Name</string>
+    <string name="add_notes_hint">Additional Info</string>
+</resources>
