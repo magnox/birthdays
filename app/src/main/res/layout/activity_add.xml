@@ -30,7 +30,7 @@
                     android:id="@+id/et_day"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:ems="2"
+                    android:ems="4"
                     android:hint="@string/add_day_hint"
                     android:inputType="date" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -44,7 +44,7 @@
                     android:id="@+id/et_month"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:ems="2"
+                    android:ems="4"
                     android:hint="@string/add_month_hint"
                     android:inputType="date" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -58,17 +58,17 @@
                     android:id="@+id/et_year"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:ems="4"
+                    android:ems="8"
                     android:hint="@string/add_year_hint"
                     android:inputType="date" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <ImageButton
                 android:id="@+id/btn_calendar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/clickable_area"
+                android:layout_height="@dimen/clickable_area"
                 android:layout_weight="1"
-                app:srcCompat="@android:drawable/ic_menu_my_calendar" />
+                app:srcCompat="@drawable/ic_event_black_24dp" />
         </LinearLayout>
 
         <com.google.android.material.textfield.TextInputLayout

@@ -71,16 +71,12 @@ class AddActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_cancel_confirm, menu)
+        menuInflater.inflate(R.menu.menu_confirm, menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.action_cancel -> {
-                finish()
-                true
-            }
             R.id.action_confirm -> {
                 finishAndReturnData()
                 true

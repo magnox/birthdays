@@ -4,14 +4,8 @@
     tools:context="com.magnox.birthdays.AddActivity">
 
     <item
-        android:id="@+id/action_cancel"
-        android:title="@string/menu_cancel"
-        android:icon="@android:drawable/ic_menu_revert"
-        app:showAsAction="always" />
-
-    <item
         android:id="@+id/action_confirm"
         android:title="@string/menu_confirm"
-        android:icon="@android:drawable/ic_menu_save"
+        android:icon="@drawable/ic_check_black_24dp"
         app:showAsAction="always" />
 </menu>
