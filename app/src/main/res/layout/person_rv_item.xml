@@ -26,7 +26,8 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="8dp">
+            android:layout_marginBottom="8dp"
+            app:cardCornerRadius="8dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/rv_item_cl"
@@ -40,21 +41,23 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
-                    android:text="@{person.firstName, default=defFirst}"
+                    android:text="@{person.firstName}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0" />
+                    app:layout_constraintVertical_bias="0.0"
+                    tools:text="Firstname" />
 
                 <TextView
                     android:id="@+id/lastname_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="4dp"
                     android:layout_marginTop="8dp"
-                    android:text="@{person.lastName, default=defLast}"
+                    android:text="@{person.lastName}"
                     app:layout_constraintStart_toEndOf="@+id/firstname_tv"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Lastname" />
 
                 <TextView
                     android:id="@+id/birthday_tv"
@@ -62,9 +65,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
+                    android:text="@{@string/date_format(person.birthday)}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:text="@{@string/date_format(person.birthday), default=defBirthday}" />
+                    tools:text="31.12.2000" />
 
                 <TextView
                     android:id="@+id/notes_tv"
@@ -73,11 +77,12 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
-                    android:text="@{person.notes, default=defNotes}"
+                    android:text="@{person.notes}"
                     android:visibility="@{person.notes != null ? View.VISIBLE : View.GONE}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/firstname_tv" />
+                    app:layout_constraintTop_toBottomOf="@+id/firstname_tv"
+                    tools:text="Some notes\ncan be\nmultiline" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
