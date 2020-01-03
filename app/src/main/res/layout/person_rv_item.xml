@@ -35,29 +35,22 @@
                 android:layout_height="match_parent">
 
                 <TextView
-                    android:id="@+id/firstname_tv"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/lastname_tv"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
-                    android:text="@{person.firstName}"
+                    android:text="@{person.getFullName}"
+                    android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/birthday_tv"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintHorizontal_chainStyle="spread_inside"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.0"
-                    tools:text="Firstname" />
-
-                <TextView
-                    android:id="@+id/lastname_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_marginStart="4dp"
-                    android:layout_marginTop="8dp"
-                    android:text="@{person.lastName}"
-                    app:layout_constraintStart_toEndOf="@+id/firstname_tv"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="Lastname" />
+                    tools:text="Name could get very long asdfasdfasdfasdfasdf" />
 
                 <TextView
                     android:id="@+id/birthday_tv"
@@ -65,8 +58,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
+                    android:fontFamily="monospace"
                     android:text="@{@string/date_format(person.birthday)}"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/lastname_tv"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="31.12.2000" />
 
@@ -81,7 +77,7 @@
                     android:visibility="@{person.notes != null ? View.VISIBLE : View.GONE}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/firstname_tv"
+                    app:layout_constraintTop_toBottomOf="@+id/lastname_tv"
                     tools:text="Some notes\ncan be\nmultiline" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

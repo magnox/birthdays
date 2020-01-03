@@ -1,6 +1,7 @@
 package com.magnox.birthdays.room
 
 import android.os.Parcelable
+import android.text.TextUtils
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -27,6 +28,16 @@ data class PersonEntity(
         }
 
         return age
+    }
+
+    fun getFullName() : String? {
+        if (!TextUtils.isEmpty(firstName)) {
+            if (!TextUtils.isEmpty(lastName)) {
+                return "$firstName $lastName"
+            }
+            return firstName
+        }
+        return lastName
     }
 }
 
