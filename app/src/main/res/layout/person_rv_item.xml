@@ -36,13 +36,13 @@
 
                 <TextView
                     android:id="@+id/lastname_tv"
+                    style="@style/CardTitle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
                     android:text="@{person.getFullName}"
-                    android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/birthday_tv"
                     app:layout_constraintHorizontal_bias="0.5"
@@ -54,11 +54,11 @@
 
                 <TextView
                     android:id="@+id/birthday_tv"
+                    style="@style/CardDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
-                    android:fontFamily="monospace"
                     android:text="@{@string/date_format(person.birthday)}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
@@ -68,14 +68,17 @@
 
                 <TextView
                     android:id="@+id/notes_tv"
-                    android:layout_width="wrap_content"
+                    style="@style/CardContent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
                     android:layout_marginBottom="8dp"
                     android:text="@{person.notes}"
                     android:visibility="@{person.notes != null ? View.VISIBLE : View.GONE}"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/lastname_tv"
                     tools:text="Some notes\ncan be\nmultiline" />
