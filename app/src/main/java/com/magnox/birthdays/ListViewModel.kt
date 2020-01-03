@@ -14,18 +14,18 @@ class ListViewModel : ViewModel() {
         return db.personDao().getAll()
     }
 
-    fun addPerson(person: PersonEntity, context: Context) {
-        addPerson(person.firstName, person.lastName, person.birthday, person.notes, context)
+    fun addPerson(person: PersonEntity, context: Context): Int {
+        return addPerson(person.firstName, person.lastName, person.birthday, person.notes, context)
     }
 
-    fun addPerson(
+    private fun addPerson(
         first: String?,
         last: String?,
         birthday: Calendar,
         notes: String?,
         context: Context
-    ) {
+    ): Int {
         val db = PersonDatabase.getInstance(context)
-        db.personDao().insert(PersonEntity(null, first, last, birthday, notes, null))
+        return db.personDao().insert(PersonEntity(null, first, last, birthday, notes, null)).toInt()
     }
 }

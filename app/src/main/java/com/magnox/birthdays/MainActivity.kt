@@ -1,6 +1,10 @@
 package com.magnox.birthdays
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -8,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.magnox.birthdays.notification.NotificationHandler
+import com.magnox.birthdays.room.PersonDatabase
 import com.magnox.birthdays.room.PersonEntity
 import com.magnox.birthdays.util.ioThread
 import kotlinx.android.synthetic.main.activity_main.*
@@ -41,6 +47,8 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, AddActivity::class.java)
             startActivityForResult(intent, ACTIVITY_REQUEST_CODE_ADD)
         }
+
+        createNotificationChannel()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -52,7 +60,11 @@ class MainActivity : AppCompatActivity() {
                     if (vm != null && data != null) {
                         val personExtra = data.getParcelableExtra<PersonEntity>(RESULT_DATA_ADD)
                         if (personExtra != null) {
-                            vm!!.addPerson(personExtra, this)
+                            val id = vm!!.addPerson(personExtra, this)
+
+                            val db = PersonDatabase.getInstance(this)
+                            val person: PersonEntity = db.personDao().getById(id)
+                            NotificationHandler.addBirthday(this, person)
                         }
                     }
                 }
@@ -69,6 +81,22 @@ class MainActivity : AppCompatActivity() {
         return when (item.itemId) {
             R.id.action_settings -> true
             else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    //TODO use channels for groups?
+    private fun createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val id = getString(R.string.notification_channel_id)
+            val name = getString(R.string.notification_channel_name)
+            val descriptionText = getString(R.string.notification_channel_description)
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val channel = NotificationChannel(id, name, importance).apply {
+                description = descriptionText
+            }
+
+            val notificationManager: NotificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
         }
     }
 }

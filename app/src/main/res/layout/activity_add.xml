@@ -33,6 +33,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/add_day_hint"
+                    android:importantForAutofill="no"
                     android:inputType="date" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -47,6 +48,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/add_month_hint"
+                    android:importantForAutofill="no"
                     android:inputType="date" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -61,6 +63,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/add_year_hint"
+                    android:importantForAutofill="no"
                     android:inputType="date" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -73,6 +76,7 @@
                 android:id="@+id/btn_calendar"
                 android:layout_width="@dimen/clickable_area"
                 android:layout_height="@dimen/clickable_area"
+                android:contentDescription="@string/cd_calendar"
                 app:srcCompat="@drawable/ic_event_black_24dp" />
         </LinearLayout>
 
@@ -92,6 +96,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/add_first_name_hint"
+                android:importantForAutofill="no"
                 android:inputType="textPersonName" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -111,6 +116,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/add_last_name_hint"
+                android:importantForAutofill="no"
                 android:inputType="textPersonName" />
         </com.google.android.material.textfield.TextInputLayout>
 

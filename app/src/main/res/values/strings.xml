@@ -12,4 +12,12 @@
     <string name="add_first_name_hint">First Name</string>
     <string name="add_last_name_hint">Last Name</string>
     <string name="add_notes_hint">Additional Info</string>
+
+    <string name="cd_calendar">Pick date</string>
+
+    <string name="notification_channel_id" translatable="false">BIRTHDAY_NOTIFICATIONS</string>
+    <string name="notification_channel_name">Birthday reminders</string>
+    <string name="notification_channel_description">Birthday reminders description TODO</string>
+    <string name="notification_title">Birthday reminder</string>
+    <string name="notification_text">Birthday of %1$s %2$s (%3$d)!</string>
 </resources>

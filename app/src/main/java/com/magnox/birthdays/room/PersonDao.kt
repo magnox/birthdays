@@ -18,7 +18,7 @@ interface PersonDao {
     fun findByName(firstName: String, lastName: String): PersonEntity
 
     @Insert
-    fun insert(person: PersonEntity)
+    fun insert(person: PersonEntity) : Long
 
     @Insert
     fun insertAll(persons: List<PersonEntity>)
@@ -28,4 +28,7 @@ interface PersonDao {
 
     @Delete
     fun delete(person: PersonEntity)
+
+    @Query("SELECT * FROM personentity WHERE uid = :id LIMIT 1")
+    fun getById(id: Int): PersonEntity
 }

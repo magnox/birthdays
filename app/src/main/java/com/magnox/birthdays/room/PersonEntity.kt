@@ -17,7 +17,18 @@ data class PersonEntity(
     val birthday: Calendar,
     val notes: String?,
     val savedGroupId: Long? //TODO link correctly!
-) : Parcelable
+) : Parcelable {
+    fun getAge() : Int {
+        val today = Calendar.getInstance()
+        var age = today[Calendar.YEAR] - birthday[Calendar.YEAR]
+
+        if (today[Calendar.DAY_OF_YEAR] < birthday[Calendar.DAY_OF_YEAR]) {
+            age--
+        }
+
+        return age
+    }
+}
 
 @Entity
 data class GroupEntity(
