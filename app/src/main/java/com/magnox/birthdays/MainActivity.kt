@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity() {
         const val PERSON_DATA = "PERSON_DATA"
         const val ACTIVITY_REQUEST_CODE_ADD = 1
         const val ACTIVITY_REQUEST_CODE_EDIT = 2
+        const val ACTION_DELETE = "ACTION_DELETE"
     }
 
     private var vm: ListViewModel? = null
@@ -53,7 +54,6 @@ class MainActivity : AppCompatActivity() {
 
         fab.setOnClickListener {
             val intent = Intent(this, AddOrEditActivity::class.java)
-//            intent.putExtra(INTENT_EXTRA_ITEM_ACTION, ITEM_ACTION_ADD)
             startActivityForResult(intent, ACTIVITY_REQUEST_CODE_ADD)
         }
 
@@ -62,6 +62,17 @@ class MainActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+
+        val deleteUid = data?.getIntExtra(ACTION_DELETE, -1)
+        if (deleteUid != null && deleteUid > 0) {
+            ioThread {
+                if (vm != null) {
+                    vm!!.deletePerson(deleteUid, this)
+
+                    NotificationHandler.deleteBirthday(this, deleteUid)
+                }
+            }
+        }
 
         when (requestCode) {
             //TODO simplify duplicated code!

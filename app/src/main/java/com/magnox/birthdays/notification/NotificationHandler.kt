@@ -25,6 +25,18 @@ class NotificationHandler : BroadcastReceiver() {
             setAlarm(context, time, person, isUpdate)
         }
 
+        fun deleteBirthday(context: Context?, uid: Int?) {
+            if (context == null || uid == null) {
+                return
+            }
+
+            val am = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+            val intent = Intent(context, NotificationHandler::class.java)
+            val pendingIntent = PendingIntent.getBroadcast(context, uid, intent, PendingIntent.FLAG_CANCEL_CURRENT)
+            //needs to be recreated exactly as it was when initially set
+            am.cancel(pendingIntent)
+        }
+
         private fun setAlarm(context: Context?, time: Calendar, person: PersonEntity, update: Boolean) {
 
             if (context == null) {

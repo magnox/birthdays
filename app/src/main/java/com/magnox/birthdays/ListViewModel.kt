@@ -40,4 +40,11 @@ class ListViewModel : ViewModel() {
         val db = PersonDatabase.getInstance(context)
         db.personDao().update(PersonEntity(person.uid, person.firstName, person.lastName, person.birthday, person.notes, null))
     }
+
+    fun deletePerson(uid: Int?, context: Context) {
+        if (uid != null) {
+            val db = PersonDatabase.getInstance(context)
+            db.personDao().deleteByUserId(uid)
+        }
+    }
 }

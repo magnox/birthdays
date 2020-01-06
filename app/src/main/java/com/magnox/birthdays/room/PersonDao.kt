@@ -30,6 +30,9 @@ interface PersonDao {
     @Delete
     fun delete(person: PersonEntity)
 
+    @Query("DELETE FROM personentity WHERE uid = :uid")
+    fun deleteByUserId(uid: Int)
+
     @Query("SELECT * FROM personentity WHERE uid = :id LIMIT 1")
     fun getById(id: Int): PersonEntity
 }

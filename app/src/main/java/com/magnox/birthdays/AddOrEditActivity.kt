@@ -92,6 +92,13 @@ class AddOrEditActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
         finish()
     }
 
+    private fun finishAndDelete() {
+        val data = Intent()
+        data.putExtra(MainActivity.ACTION_DELETE, currentUid)
+        setResult(Activity.RESULT_OK, data)
+        finish()
+    }
+
     private fun validateInputs(): Boolean {
 
         var isValid = true
@@ -144,6 +151,10 @@ class AddOrEditActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
         return when (item.itemId) {
             R.id.action_confirm -> {
                 finishAndReturnData()
+                true
+            }
+            R.id.action_delete -> {
+                finishAndDelete()
                 true
             }
             else -> super.onOptionsItemSelected(item)
