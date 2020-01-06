@@ -24,7 +24,7 @@
 
         <activity
             android:name=".AddOrEditActivity"
-            android:label="Add Stuff TODO"
+            android:label="@string/add_or_edit_title"
             android:parentActivityName=".MainActivity" />
 
         <receiver android:name=".notification.NotificationHandler"/>

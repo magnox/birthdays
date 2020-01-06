@@ -18,7 +18,6 @@ import java.util.*
 
 class AddOrEditActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
 
-//    private var currentItemAction: String? = null
     private var currentUid: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,9 +39,9 @@ class AddOrEditActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
                 .customTitle(getString(R.string.add_date_picker_dialog_title))
                 .showDaySpinner(true)
                 .defaultDate(
-                    today.get(Calendar.YEAR),
-                    today.get(Calendar.MONTH),
-                    today.get(Calendar.DAY_OF_MONTH)
+                    et_year.text.toString().toIntOrNull() ?: today.get(Calendar.YEAR),
+                    et_month.text.toString().toIntOrNull()?.minus(1) ?: today.get(Calendar.MONTH),
+                    et_day.text.toString().toIntOrNull() ?: today.get(Calendar.DAY_OF_MONTH)
                 )
                 .build()
                 .show()
@@ -69,17 +68,15 @@ class AddOrEditActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
     }
 
     private fun finishAndReturnData() {
+        if (!validateInputs()) return
+
         val data = Intent()
         val birthday = Calendar.getInstance().apply {
-            if (et_year.text.toString().isNotEmpty()
-                && et_month.text.toString().isNotEmpty()
-                && et_day.text.toString().isNotEmpty()) {
-                set(
-                    et_year.text.toString().toInt(),
-                    et_month.text.toString().toInt() - 1,
-                    et_day.text.toString().toInt()
-                )
-            }
+            set(
+                et_year.text.toString().toInt(),
+                et_month.text.toString().toInt() - 1,
+                et_day.text.toString().toInt()
+            )
         }
 
         val firstName = if (et_firstname.text.toString().isNotEmpty()) et_firstname.text.toString() else null
@@ -91,6 +88,49 @@ class AddOrEditActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
         data.putExtra(MainActivity.PERSON_DATA, personData)
         setResult(Activity.RESULT_OK, data)
         finish()
+    }
+
+    private fun validateInputs(): Boolean {
+
+        var isValid = true
+
+        if (et_day.text.toString().isEmpty()) {
+            et_day.error = getString(R.string.add_error_field_required)
+            isValid = false
+        }
+        else if (et_day.text.toString().toInt() < 1 || et_day.text.toString().toInt() > 31) {
+            et_day.error = getString(R.string.add_error_invalid_date)
+            isValid = false
+        }
+        else if (et_day.text.toString().isNotEmpty()) {
+            et_day.error = null
+        }
+
+        if (et_month.text.toString().isEmpty()) {
+            et_month.error = getString(R.string.add_error_field_required)
+            isValid = false
+        }
+        else if (et_month.text.toString().toInt() < 1 || et_month.text.toString().toInt() > 12) {
+            et_month.error = getString(R.string.add_error_invalid_date)
+            isValid = false
+        }
+        else if (et_month.text.toString().isNotEmpty()) {
+            et_month.error = null
+        }
+
+        if (et_year.text.toString().isEmpty()) {
+            et_year.error = getString(R.string.add_error_field_required)
+            isValid = false
+        }
+        else if (et_year.text.toString().toInt() < 1 || et_year.text.toString().toInt() > 10000) {
+            et_year.error = getString(R.string.add_error_invalid_date)
+            isValid = false
+        }
+        else if (et_year.text.toString().isNotEmpty()) {
+            et_year.error = null
+        }
+
+        return isValid
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -112,6 +152,7 @@ class AddOrEditActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
         et_day.setText(dayOfMonth.toString())
         et_month.setText((monthOfYear + 1).toString())
         et_year.setText(year.toString())
+        validateInputs()
     }
 
     private class FocusNextViewTextWatcher internal constructor(var count: Int, var view: View) : TextWatcher {

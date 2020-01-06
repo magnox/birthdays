@@ -6,7 +6,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
@@ -26,8 +25,6 @@ class MainActivity : AppCompatActivity() {
         const val PERSON_DATA = "PERSON_DATA"
         const val ACTIVITY_REQUEST_CODE_ADD = 1
         const val ACTIVITY_REQUEST_CODE_EDIT = 2
-//        const val INTENT_EXTRA_ITEM_ACTION = "INTENT_EXTRA_ITEM_ACTION"
-//        const val ITEM_ACTION_ADD = "ITEM_ACTION_ADD"
     }
 
     private var vm: ListViewModel? = null
@@ -43,8 +40,6 @@ class MainActivity : AppCompatActivity() {
                     val personAdapter = PersonAdapter(personList)
                     rv_birthday_list.adapter = personAdapter
                     personAdapter.onItemClick = { person ->
-                        Log.d("asdf", "${person.getFullName()}, ${person.uid}") //TODO CONTINUE HERE BY CALLING NEXT ACTION
-
                         val intent = Intent(this, AddOrEditActivity::class.java)
                         intent.putExtra(PERSON_DATA, person)
                         startActivityForResult(intent, ACTIVITY_REQUEST_CODE_EDIT)
