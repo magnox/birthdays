@@ -20,6 +20,7 @@ class ListViewModel : ViewModel() {
 //        return db.personDao().getAll().value!!
 //    }
 
+    //TODO is this the right location for these methods?
     fun addPerson(person: PersonEntity, context: Context): Int {
         return addPerson(person.firstName, person.lastName, person.birthday, person.notes, context)
     }
@@ -33,5 +34,10 @@ class ListViewModel : ViewModel() {
     ): Int {
         val db = PersonDatabase.getInstance(context)
         return db.personDao().insert(PersonEntity(null, first, last, birthday, notes, null)).toInt()
+    }
+
+    fun updatePerson(person: PersonEntity, context: Context) {
+        val db = PersonDatabase.getInstance(context)
+        db.personDao().update(PersonEntity(person.uid, person.firstName, person.lastName, person.birthday, person.notes, null))
     }
 }

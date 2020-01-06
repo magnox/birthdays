@@ -16,11 +16,18 @@ import com.magnox.spinnerdatepicker.SpinnerDatePickerDialogBuilder
 import kotlinx.android.synthetic.main.activity_add.*
 import java.util.*
 
-class AddActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
+class AddOrEditActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
+
+//    private var currentItemAction: String? = null
+    private var currentUid: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add)
+
+        if (intent != null) {
+            fillView(intent.getParcelableExtra(MainActivity.PERSON_DATA))
+        }
 
         btn_calendar.setOnClickListener {
             val today = Calendar.getInstance()
@@ -45,6 +52,22 @@ class AddActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
         et_month.addTextChangedListener(FocusNextViewTextWatcher(2, et_year))
     }
 
+    private fun fillView(person: PersonEntity?) {
+        if (person == null) {
+            return
+        }
+
+        currentUid = person.uid
+
+        et_day.setText(person.birthday[Calendar.DAY_OF_MONTH].toString())
+        et_month.setText((person.birthday[Calendar.MONTH] + 1).toString())
+        et_year.setText(person.birthday[Calendar.YEAR].toString())
+        et_firstname.setText(person.firstName)
+        et_lastname.setText(person.lastName)
+        et_notes.setText(person.notes)
+        //TODO add group later
+    }
+
     private fun finishAndReturnData() {
         val data = Intent()
         val birthday = Calendar.getInstance().apply {
@@ -59,13 +82,13 @@ class AddActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
             }
         }
 
-        val notes = if (et_notes.text.toString().isNotEmpty()) et_notes.text.toString() else null
         val firstName = if (et_firstname.text.toString().isNotEmpty()) et_firstname.text.toString() else null
         val lastName = if (et_lastname.text.toString().isNotEmpty()) et_lastname.text.toString() else null
+        val notes = if (et_notes.text.toString().isNotEmpty()) et_notes.text.toString() else null
 
-        val personData = PersonEntity(null, firstName, lastName, birthday, notes, null)
+        val personData = PersonEntity(currentUid, firstName, lastName, birthday, notes, null)
 
-        data.putExtra(MainActivity.RESULT_DATA_ADD, personData)
+        data.putExtra(MainActivity.PERSON_DATA, personData)
         setResult(Activity.RESULT_OK, data)
         finish()
     }

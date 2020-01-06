@@ -18,11 +18,11 @@ class NotificationHandler : BroadcastReceiver() {
     companion object {
         const val INTENT_NOTIFICATION_TEXT = "INTENT_NOTIFICATION_TEXT"
 
-        fun addBirthday(context: Context?, person: PersonEntity) { //TODO add delete and update methods!
+        fun addOrEditBirthday(context: Context?, person: PersonEntity, isUpdate: Boolean) { //TODO add delete and update methods!
             val time = getNextBirthday(person.birthday)
             time[Calendar.HOUR_OF_DAY] = 8 //TODO make configurable
             time[Calendar.MINUTE] = 0
-            setAlarm(context, time, person, false)
+            setAlarm(context, time, person, isUpdate)
         }
 
         private fun setAlarm(context: Context?, time: Calendar, person: PersonEntity, update: Boolean) {

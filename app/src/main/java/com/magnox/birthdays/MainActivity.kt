@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
@@ -22,8 +23,11 @@ import kotlinx.android.synthetic.main.content_main.*
 class MainActivity : AppCompatActivity() {
 
     companion object {
-        const val RESULT_DATA_ADD = "RESULT_DATA_ADD"
+        const val PERSON_DATA = "PERSON_DATA"
         const val ACTIVITY_REQUEST_CODE_ADD = 1
+        const val ACTIVITY_REQUEST_CODE_EDIT = 2
+//        const val INTENT_EXTRA_ITEM_ACTION = "INTENT_EXTRA_ITEM_ACTION"
+//        const val ITEM_ACTION_ADD = "ITEM_ACTION_ADD"
     }
 
     private var vm: ListViewModel? = null
@@ -38,6 +42,13 @@ class MainActivity : AppCompatActivity() {
                 if (personList != null) {
                     val personAdapter = PersonAdapter(personList)
                     rv_birthday_list.adapter = personAdapter
+                    personAdapter.onItemClick = { person ->
+                        Log.d("asdf", "${person.getFullName()}, ${person.uid}") //TODO CONTINUE HERE BY CALLING NEXT ACTION
+
+                        val intent = Intent(this, AddOrEditActivity::class.java)
+                        intent.putExtra(PERSON_DATA, person)
+                        startActivityForResult(intent, ACTIVITY_REQUEST_CODE_EDIT)
+                    }
 //                    enableSwipe(personAdapter, rv_birthday_list)
                 }
             })
@@ -46,7 +57,8 @@ class MainActivity : AppCompatActivity() {
         rv_birthday_list.layoutManager = LinearLayoutManager(this)
 
         fab.setOnClickListener {
-            val intent = Intent(this, AddActivity::class.java)
+            val intent = Intent(this, AddOrEditActivity::class.java)
+//            intent.putExtra(INTENT_EXTRA_ITEM_ACTION, ITEM_ACTION_ADD)
             startActivityForResult(intent, ACTIVITY_REQUEST_CODE_ADD)
         }
 
@@ -57,16 +69,31 @@ class MainActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
 
         when (requestCode) {
+            //TODO simplify duplicated code!
             ACTIVITY_REQUEST_CODE_ADD -> {
                 ioThread {
                     if (vm != null && data != null) {
-                        val personExtra = data.getParcelableExtra<PersonEntity>(RESULT_DATA_ADD)
+                        val personExtra = data.getParcelableExtra<PersonEntity>(PERSON_DATA)
                         if (personExtra != null) {
                             val id = vm!!.addPerson(personExtra, this)
 
                             val db = PersonDatabase.getInstance(this)
                             val person: PersonEntity = db.personDao().getById(id)
-                            NotificationHandler.addBirthday(this, person)
+                            NotificationHandler.addOrEditBirthday(this, person, false)
+                        }
+                    }
+                }
+            }
+            ACTIVITY_REQUEST_CODE_EDIT -> {
+                ioThread {
+                    if (vm != null && data != null) {
+                        val personExtra = data.getParcelableExtra<PersonEntity>(PERSON_DATA)
+                        if (personExtra?.uid != null) {
+                            vm!!.updatePerson(personExtra, this)
+
+                            val db = PersonDatabase.getInstance(this)
+                            val person: PersonEntity = db.personDao().getById(personExtra.uid)
+                            NotificationHandler.addOrEditBirthday(this, person, true)
                         }
                     }
                 }

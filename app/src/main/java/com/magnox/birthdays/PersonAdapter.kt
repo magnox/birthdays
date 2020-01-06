@@ -9,6 +9,8 @@ import com.magnox.birthdays.room.PersonEntity
 class PersonAdapter(private val persons: List<PersonEntity>): RecyclerView.Adapter<PersonAdapter.PersonViewHolder>() {
 //class PersonAdapter(private val persons: MutableList<PersonEntity>): RecyclerView.Adapter<PersonAdapter.PersonViewHolder>() {
 
+    var onItemClick: ((PersonEntity) -> Unit)? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PersonViewHolder {
         return PersonViewHolder(
             PersonRvItemBinding.inflate(
@@ -36,11 +38,17 @@ class PersonAdapter(private val persons: List<PersonEntity>): RecyclerView.Adapt
 //        //TODO write to DB again!
 //    }
 
-    class PersonViewHolder(v: PersonRvItemBinding): RecyclerView.ViewHolder(v.root){
-        val demoRvItemBinding = v
+    inner class PersonViewHolder(v: PersonRvItemBinding): RecyclerView.ViewHolder(v.root){
+        private val demoRvItemBinding = v
         fun bind(person: PersonEntity) {
             demoRvItemBinding.person = person
             demoRvItemBinding.executePendingBindings()
+        }
+
+        init {
+            itemView.setOnClickListener {
+                onItemClick?.invoke(persons[adapterPosition])
+            }
         }
     }
 }
