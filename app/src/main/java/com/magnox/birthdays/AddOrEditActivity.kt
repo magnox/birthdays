@@ -29,6 +29,8 @@ class AddOrEditActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
             fillView(intent.getParcelableExtra(MainActivity.PERSON_DATA))
         }
 
+        supportActionBar?.title = if (currentUid == null) getString(R.string.add_title) else getString(R.string.edit_title)
+
         btn_calendar.setOnClickListener {
             val today = Calendar.getInstance()
 
@@ -145,6 +147,7 @@ class AddOrEditActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_confirm, menu)
+        menu.findItem(R.id.action_delete).apply { isVisible = currentUid != null }
         return true
     }
 
