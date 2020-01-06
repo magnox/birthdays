@@ -18,6 +18,10 @@
     <string name="add_error_field_required">required</string>
     <string name="add_error_invalid_date">invalid date</string>
 
+    <string name="delete_dialog_title">Do you want to permanently delete this entry?</string>
+    <string name="delete_dialog_confirm">Yes</string>
+    <string name="delete_dialog_cancel">No</string>
+
     <string name="cd_calendar">Pick date</string>
 
     <string name="notification_channel_id" translatable="false">BIRTHDAY_NOTIFICATIONS</string>

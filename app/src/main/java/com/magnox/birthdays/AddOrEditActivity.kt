@@ -8,6 +8,7 @@ import android.text.TextWatcher
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.magnox.birthdays.room.PersonEntity
 import com.magnox.spinnerdatepicker.DatePicker
@@ -154,11 +155,20 @@ class AddOrEditActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
                 true
             }
             R.id.action_delete -> {
-                finishAndDelete()
+                showConfirmationDialog()
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun showConfirmationDialog() {
+        AlertDialog.Builder(this)
+            .setMessage(getString(R.string.delete_dialog_title))
+            .setPositiveButton(getString(R.string.delete_dialog_confirm)) { _, _ -> finishAndDelete() }
+            .setNegativeButton(getString(R.string.delete_dialog_cancel)) { dialog, _ -> dialog.dismiss() }
+            .setCancelable(true)
+            .create().show()
     }
 
     override fun onDateSet(view: DatePicker?, year: Int, monthOfYear: Int, dayOfMonth: Int) {
