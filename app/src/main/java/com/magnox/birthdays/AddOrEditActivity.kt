@@ -49,6 +49,8 @@ class AddOrEditActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
 
         et_day.addTextChangedListener(FocusNextViewTextWatcher(2, et_month))
         et_month.addTextChangedListener(FocusNextViewTextWatcher(2, et_year))
+
+        btn_submit.setOnClickListener { finishAndReturnData() }
     }
 
     private fun fillView(person: PersonEntity?) {

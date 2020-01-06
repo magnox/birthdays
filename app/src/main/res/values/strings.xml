@@ -6,6 +6,7 @@
     <string name="menu_confirm">Confirm</string>
 
     <string name="add_or_edit_title">Edit entry</string>
+    <string name="add_or_edit_submit">Save data</string>
     <string name="add_date_picker_dialog_title">Choose birthday</string>
     <string name="add_day_hint">day</string>
     <string name="add_month_hint">month</string>

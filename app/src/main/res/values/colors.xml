@@ -9,4 +9,5 @@
     <color name="colorDivider">#BDBDBD</color>
 
     <color name="actionItemTint">@android:color/white</color>
+    <color name="listBackground">#EEEEEE</color>
 </resources>
