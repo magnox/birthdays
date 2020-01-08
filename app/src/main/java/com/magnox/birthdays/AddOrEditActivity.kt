@@ -2,6 +2,7 @@ package com.magnox.birthdays
 
 import android.app.Activity
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -15,8 +16,8 @@ import com.magnox.spinnerdatepicker.DatePicker
 import com.magnox.spinnerdatepicker.DatePickerDialog
 import com.magnox.spinnerdatepicker.SpinnerDatePickerDialogBuilder
 import kotlinx.android.synthetic.main.activity_add.*
-import java.util.*
 import java.time.YearMonth
+import java.util.*
 
 class AddOrEditActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
 
@@ -130,7 +131,7 @@ class AddOrEditActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
         }
 
         var daysInMonth = 31
-        if (isValid) {
+        if (isValid && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val yearMonthObject =
                 YearMonth.of(et_year.text.toString().toInt(), et_month.text.toString().toInt())
             daysInMonth = yearMonthObject.lengthOfMonth()
