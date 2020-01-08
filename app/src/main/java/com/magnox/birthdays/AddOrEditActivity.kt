@@ -16,6 +16,7 @@ import com.magnox.spinnerdatepicker.DatePickerDialog
 import com.magnox.spinnerdatepicker.SpinnerDatePickerDialogBuilder
 import kotlinx.android.synthetic.main.activity_add.*
 import java.util.*
+import java.time.YearMonth
 
 class AddOrEditActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
 
@@ -84,8 +85,10 @@ class AddOrEditActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
             )
         }
 
-        val firstName = if (et_firstname.text.toString().isNotEmpty()) et_firstname.text.toString() else null
-        val lastName = if (et_lastname.text.toString().isNotEmpty()) et_lastname.text.toString() else null
+        val firstName =
+            if (et_firstname.text.toString().isNotEmpty()) et_firstname.text.toString() else null
+        val lastName =
+            if (et_lastname.text.toString().isNotEmpty()) et_lastname.text.toString() else null
         val notes = if (et_notes.text.toString().isNotEmpty()) et_notes.text.toString() else null
 
         val personData = PersonEntity(currentUid, firstName, lastName, birthday, notes, null)
@@ -106,40 +109,41 @@ class AddOrEditActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
 
         var isValid = true
 
-        if (et_day.text.toString().isEmpty()) {
-            et_day.error = getString(R.string.add_error_field_required)
-            isValid = false
-        }
-        else if (et_day.text.toString().toInt() < 1 || et_day.text.toString().toInt() > 31) {
-            et_day.error = getString(R.string.add_error_invalid_date)
-            isValid = false
-        }
-        else if (et_day.text.toString().isNotEmpty()) {
-            et_day.error = null
-        }
-
         if (et_month.text.toString().isEmpty()) {
             et_month.error = getString(R.string.add_error_field_required)
             isValid = false
-        }
-        else if (et_month.text.toString().toInt() < 1 || et_month.text.toString().toInt() > 12) {
+        } else if (et_month.text.toString().toInt() < 1 || et_month.text.toString().toInt() > 12) {
             et_month.error = getString(R.string.add_error_invalid_date)
             isValid = false
-        }
-        else if (et_month.text.toString().isNotEmpty()) {
+        } else if (et_month.text.toString().isNotEmpty()) {
             et_month.error = null
         }
 
         if (et_year.text.toString().isEmpty()) {
             et_year.error = getString(R.string.add_error_field_required)
             isValid = false
-        }
-        else if (et_year.text.toString().toInt() < 1 || et_year.text.toString().toInt() > 10000) {
+        } else if (et_year.text.toString().toInt() < 1 || et_year.text.toString().toInt() > 10000) {
             et_year.error = getString(R.string.add_error_invalid_date)
             isValid = false
-        }
-        else if (et_year.text.toString().isNotEmpty()) {
+        } else if (et_year.text.toString().isNotEmpty()) {
             et_year.error = null
+        }
+
+        var daysInMonth = 31
+        if (isValid) {
+            val yearMonthObject =
+                YearMonth.of(et_year.text.toString().toInt(), et_month.text.toString().toInt())
+            daysInMonth = yearMonthObject.lengthOfMonth()
+        }
+
+        if (et_day.text.toString().isEmpty()) {
+            et_day.error = getString(R.string.add_error_field_required)
+            isValid = false
+        } else if (et_day.text.toString().toInt() < 1 || et_day.text.toString().toInt() > daysInMonth) {
+            et_day.error = getString(R.string.add_error_invalid_date)
+            isValid = false
+        } else if (et_day.text.toString().isNotEmpty()) {
+            et_day.error = null
         }
 
         return isValid
@@ -181,7 +185,8 @@ class AddOrEditActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
         validateInputs()
     }
 
-    private class FocusNextViewTextWatcher internal constructor(var count: Int, var view: View) : TextWatcher {
+    private class FocusNextViewTextWatcher internal constructor(var count: Int, var view: View) :
+        TextWatcher {
         override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
 
         override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
