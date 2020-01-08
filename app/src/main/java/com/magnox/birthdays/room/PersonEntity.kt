@@ -7,6 +7,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.Relation
 import kotlinx.android.parcel.Parcelize
+import java.text.SimpleDateFormat
 import java.util.*
 
 @Entity
@@ -38,6 +39,10 @@ data class PersonEntity(
             return firstName
         }
         return lastName
+    }
+
+    fun getMonthName(): String? {
+        return SimpleDateFormat("MMM", Locale.getDefault()).format(birthday.time)
     }
 }
 

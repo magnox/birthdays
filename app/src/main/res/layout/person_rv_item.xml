@@ -2,7 +2,8 @@
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="@id/rv_birthday_list">
 
     <data>
 
@@ -44,7 +45,7 @@
                     android:layout_marginBottom="8dp"
                     android:text="@{person.getFullName}"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/birthday_tv"
+                    app:layout_constraintEnd_toStartOf="@+id/birthday_cal"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintHorizontal_chainStyle="spread_inside"
                     app:layout_constraintStart_toStartOf="parent"
@@ -52,20 +53,67 @@
                     app:layout_constraintVertical_bias="0.0"
                     tools:text="Name could get very long asdfasdfasdfasdfasdf" />
 
-                <TextView
-                    android:id="@+id/birthday_tv"
-                    style="@style/CardDate"
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/birthday_cal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
-                    android:text="@{@string/date_format(person.birthday)}"
+                    android:layout_marginBottom="8dp"
+                    app:cardCornerRadius="4dp"
+                    app:cardPreventCornerOverlap="true"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toEndOf="@+id/lastname_tv"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:text="31.12.2000" />
+                    app:layout_constraintVertical_bias="0.0">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:minWidth="48dp"
+                        android:minHeight="48dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/CardText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/cal_bg"
+                            android:fontFamily="monospace"
+                            android:gravity="center"
+                            android:padding="2dp"
+                            android:text="@{person.getMonthName}"
+                            android:textSize="12sp"
+                            tools:text="Feb." />
+
+                        <TextView
+                            style="@style/CardText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="monospace"
+                            android:gravity="center"
+                            android:padding="4dp"
+                            android:text="@{@string/date_format_d(person.birthday)}"
+                            android:textSize="18sp"
+                            tools:text="28" />
+
+                        <!--<TextView
+                            style="@style/CardText"
+                            android:textSize="10sp"
+                            android:fontFamily="monospace"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:paddingBottom="4dp"
+                            android:text="@{@string/date_format_y(person.birthday)}"
+                            tools:text="1999" />-->
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
 
                 <TextView
                     android:id="@+id/notes_tv"

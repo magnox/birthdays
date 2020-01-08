@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Birthdays</string>
     <string name="date_format">%1$td.%1$tm.%1$tY</string>
+    <string name="date_format_y">%1$tY</string>
+    <string name="date_format_m">%1$tm</string>
+    <string name="date_format_d">%1$td</string>
 
     <string name="menu_settings">Settings</string>
     <string name="menu_confirm">Confirm</string>
