@@ -7,7 +7,6 @@ import androidx.room.*
 interface PersonDao {
     @Query("SELECT * FROM personentity")
     fun getAll(): LiveData<List<PersonEntity>>
-//    fun getAll(): LiveData<MutableList<PersonEntity>>
 
 //    @Query("SELECT * FROM userentity WHERE first IN (:firstNames)")
 //    fun loadAllByName(firstNames: Array<String>): LiveData<List<UserEntity>>

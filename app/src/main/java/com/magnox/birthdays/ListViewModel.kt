@@ -10,15 +10,9 @@ import java.util.*
 class ListViewModel : ViewModel() {
 
     fun getPersonData(context: Context): LiveData<List<PersonEntity>> {
-//    fun getPersonData(context: Context): LiveData<MutableList<PersonEntity>> {
         val db = PersonDatabase.getInstance(context)
         return db.personDao().getAll()
     }
-
-//    fun getPersonData2(context: Context): MutableList<PersonEntity> {
-//        val db = PersonDatabase.getInstance(context)
-//        return db.personDao().getAll().value!!
-//    }
 
     //TODO is this the right location for these methods?
     fun addPerson(person: PersonEntity, context: Context): Int {

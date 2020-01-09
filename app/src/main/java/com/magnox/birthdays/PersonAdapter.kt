@@ -7,7 +7,6 @@ import com.magnox.birthdays.databinding.PersonRvItemBinding
 import com.magnox.birthdays.room.PersonEntity
 
 class PersonAdapter(private val persons: List<PersonEntity>): RecyclerView.Adapter<PersonAdapter.PersonViewHolder>() {
-//class PersonAdapter(private val persons: MutableList<PersonEntity>): RecyclerView.Adapter<PersonAdapter.PersonViewHolder>() {
 
     var onItemClick: ((PersonEntity) -> Unit)? = null
 
@@ -24,19 +23,6 @@ class PersonAdapter(private val persons: List<PersonEntity>): RecyclerView.Adapt
     override fun getItemCount(): Int {
         return persons.size
     }
-
-//    fun removeItem(position: Int) {
-//        persons.removeAt(position)
-//        notifyItemRemoved(position)
-//        notifyItemRangeChanged(position, persons.size)
-//        //TODO remove from database!
-//    }
-//
-//    fun restoreItem(person: PersonEntity, position: Int) {
-//        persons.add(position, person)
-//        notifyItemInserted(position)
-//        //TODO write to DB again!
-//    }
 
     inner class PersonViewHolder(v: PersonRvItemBinding): RecyclerView.ViewHolder(v.root){
         private val demoRvItemBinding = v
