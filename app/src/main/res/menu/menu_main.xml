@@ -8,4 +8,10 @@
         android:title="@string/menu_settings"
         android:icon="@drawable/ic_settings_black_24dp"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_debug_add_group"
+        android:orderInCategory="100"
+        android:title="DEBUG add group"
+        android:icon="@drawable/ic_settings_black_24dp"
+        app:showAsAction="never" />
 </menu>

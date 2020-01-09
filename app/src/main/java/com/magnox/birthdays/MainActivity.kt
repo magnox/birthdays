@@ -6,8 +6,12 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.EditText
+import android.widget.LinearLayout
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -115,8 +119,40 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_settings -> true
+            R.id.action_debug_add_group -> {
+                showAddGroupDialog()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun showAddGroupDialog() { //TODO DEBUG remove!
+
+        val input = EditText(this@MainActivity)
+        val lp = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.MATCH_PARENT
+        )
+        input.layoutParams = lp
+
+        val dialogBuilder = AlertDialog.Builder(this)
+        dialogBuilder.setMessage("Add group")
+            .setCancelable(false)
+            .setPositiveButton("Add") { _, _ ->
+                ioThread {
+                    val newGroup = vm!!.addGroup(input.text.toString(), this)
+                    Log.d("DEBUG", "new group: ${input.text} : $newGroup")
+                }
+
+            }
+            .setNegativeButton("Cancel") { dialog, _ ->
+                dialog.cancel()
+            }
+
+        val alert = dialogBuilder.create()
+        alert.setView(input)
+        alert.show()
     }
 
     //TODO use channels for groups?

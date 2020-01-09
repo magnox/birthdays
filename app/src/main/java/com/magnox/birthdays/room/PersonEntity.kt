@@ -18,7 +18,7 @@ data class PersonEntity(
     val lastName: String?,
     val birthday: Calendar,
     val notes: String?,
-    val savedGroupId: Long? //TODO link correctly!
+    var savedGroupId: Long? //TODO link correctly!
 ) : Parcelable {
     fun getAge() : Int {
         val today = Calendar.getInstance()
@@ -48,12 +48,12 @@ data class PersonEntity(
 
 @Entity
 data class GroupEntity(
-    @PrimaryKey(autoGenerate = true) val groupId: Long,
-    val groupName: String
+    @PrimaryKey(autoGenerate = true) val groupId: Long?,
+    val groupName: String?
 )
 
 data class GroupOfPersons(
-    @Embedded val person: PersonEntity,
+    @Embedded val group: GroupEntity,
     @Relation(
         parentColumn = "groupId",
         entityColumn = "savedGroupId"

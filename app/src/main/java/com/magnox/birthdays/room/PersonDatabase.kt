@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 
-@Database(entities = [PersonEntity::class], version = 1)
+@Database(entities = [PersonEntity::class, GroupEntity::class], version = 1)
 @TypeConverters(CalendarTypeConverter::class)
 abstract class PersonDatabase : RoomDatabase() {
     abstract fun personDao(): PersonDao

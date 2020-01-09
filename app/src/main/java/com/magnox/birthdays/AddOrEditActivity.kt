@@ -92,7 +92,9 @@ class AddOrEditActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
             if (et_lastname.text.toString().isNotEmpty()) et_lastname.text.toString() else null
         val notes = if (et_notes.text.toString().isNotEmpty()) et_notes.text.toString() else null
 
-        val personData = PersonEntity(currentUid, firstName, lastName, birthday, notes, null)
+        val groupId: Long? = null //TODO link correct groupId!
+
+        val personData = PersonEntity(currentUid, firstName, lastName, birthday, notes, groupId)
 
         data.putExtra(MainActivity.PERSON_DATA, personData)
         setResult(Activity.RESULT_OK, data)
